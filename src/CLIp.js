@@ -266,7 +266,7 @@ const CLIp = {};
     const modes = {"executionMode":{"value":"readWrite","allowedValues":["writeOnly","readOnly","readWrite"]},"strictMode":false,"strictCommandMode":false};
     const allowedDataTypes = ["string","number","null","undefined","NaN","infer"];
     Object.freeze(modes.allowedValues);
-    const _VERSION = "0.0.1";
+    const _VERSION = "1.0.0";
     /*It's a constant to prevent changes during runtime (in addition to it being frozen)...*/
     const metadataNames = {
         type: "_CLIpObjectletType",
@@ -627,7 +627,7 @@ const CLIp = {};
         Object.defineProperty(objList.CLIp,"OpenTutorial",{value:{[metadataNames.type]:"method",[metadataNames.allowListeners]:false,[metadataNames.listeners]:new Array(0),[metadataNames.value]:() => {
             /*Currently I don't have a webpage for this.*/
             if("open" in globalThis){
-                globalThis.open("https://CLIp.baconman321.repl.co/tutorial");
+                globalThis.open("https://clip.baconman321.repl.co/docs/usertutorial");
             }
         }},enumerable:true});
         Object.defineProperty(objList.CLIp,"StrictModeEnabled",{value:{[metadataNames.type]:"method",[metadataNames.allowListeners]:false,[metadataNames.listeners]:new Array(0),[metadataNames.value]:() => modes.strictMode},enumerable:true});
