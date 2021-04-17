@@ -32,8 +32,6 @@ TODO:
     
     *Alert programmers using this that XSS IS possible if the user enters in a string containing HTML content for a setter value. Always, ALWAYS escape ANYTHING coming from a source you don't control. Either don't use ".innerHTML" or use a HTML escaping library.
     
-    *Get an MIT license (yessssssssssssssssssssssssss)
-    
     *Find and fix bugs! (My least favorite part...)
 
 
@@ -102,6 +100,8 @@ Finished TODO:
     *Make properties that can only be changed by the code itself. (Yes, very important. That said, I've got to add a disclaimer in the tutorial saying that read-only values aren't really "read-only" to the user since they can use devtools to edit the value. Again, like I said - don't ever handle sensitive information on the client!)
     
     *Get a disclaimer from the school for the MIT license (yessss)
+    
+    *Get an MIT license (yessssssssssssssssssssssssss)
 
 
 
@@ -1429,7 +1429,7 @@ const CLIp = {};
                     rej(new SyntaxError(`Cannot use strings on the left-hand side of the setter. Column number: ${v.column_numbers[0]}.`));
                 }
                 else if(v.type === "string" && setterFound && objectletAfterSetter){
-                    rej(new SyntaxError(`Unexpected raw value after string (cannot combine two ajacent values). Column number: ${v.colum_numbers[0]}.`));
+                    rej(new SyntaxError(`Unexpected raw value after string (cannot combine two ajacent values). Column number: ${v.column_numbers[0]}.`));
                 }
                 else if(v.type === "objectlet" && setterFound && stringAfterSetter){
                     rej(new SyntaxError(`Unexpected string after raw value (cannot combine two ajacent values). Column number: ${v.column_numbers[0]}.`));
