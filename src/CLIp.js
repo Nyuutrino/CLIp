@@ -2049,8 +2049,7 @@ const CLIp = {};
                                         else if(v === "NaN"){
                                             val = NaN;
                                         }
-                                        /*An empty string evaluates to 0. Let's not do that, though.*/
-                                        else if(!Number.isNaN(Number(v)) && v !== ""){
+                                        else if(!Number.isNaN(Number(v))){
                                             val = Number(val);
                                         }
                                     });
@@ -2071,8 +2070,7 @@ const CLIp = {};
                                         else if(v === "NaN"){
                                             val = NaN;
                                         }
-                                        /*An empty string evaluates to 0. Let's not do that, though.*/
-                                        else if(!Number.isNaN(Number(v)) && v !== ""){
+                                        else if(!Number.isNaN(Number(v))){
                                             val = Number(val);
                                         }
                                     });
@@ -2087,8 +2085,7 @@ const CLIp = {};
                                     else if(val === "NaN"){
                                         val = NaN;
                                     }
-                                    /*An empty string evaluates to 0. Let's not do that, though.*/
-                                    else if(!Number.isNaN(Number(val)) && val !== ""){
+                                    else if(!Number.isNaN(Number(val))){
                                         val = Number(val);
                                     }
                                 }
