@@ -266,7 +266,7 @@ const CLIp = {};
     const modes = {"executionMode":{"value":"readWrite","allowedValues":["writeOnly","readOnly","readWrite"]},"strictMode":false,"strictCommandMode":false};
     const allowedDataTypes = ["string","number","null","undefined","NaN","infer"];
     Object.freeze(modes.allowedValues);
-    const _VERSION = "1.0.0";
+    const _VERSION = "1.0.1";
     /*It's a constant to prevent changes during runtime (in addition to it being frozen)...*/
     const metadataNames = {
         type: "_CLIpObjectletType",
@@ -440,6 +440,16 @@ const CLIp = {};
                 }
                 LAST_OPERATOR = typeof string[i - 1] === typeof void(0) ? "" : string[i - 1];
                 if(IS_ESCAPE){
+                    if(IS_STRING && v === T_STRING){
+                        stringCollection.push(v);
+                        IS_ESCAPE = false;
+                        continue;
+                    }
+                    else if(IS_STRING){
+                        stringCollection.push(`\\${v}`);
+                        IS_ESCAPE = false;
+                        continue;
+                    }
                     if(pushTokens){
                         tokenCollection.push({"type":"escaped_char","column_numbers":[COL - 1, COL],"value":`\\${v}`});
                     }
@@ -451,6 +461,9 @@ const CLIp = {};
                     IS_ESCAPE = true;
                     drainObjectletCollection();
                     continue;
+                }
+                else if (v === T_ESCAPE && !IS_ESCAPE){
+                    IS_ESCAPE = true;
                 }
                 else if(v === T_STRING && !IS_STRING && !TYPE_DECL_OPEN){
                     objectletLineEnd = COL - 1;
