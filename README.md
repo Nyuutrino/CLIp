@@ -4,7 +4,7 @@ An easily-integrated command-line-interpreter meant built in JavaScript.
 
 Use it in any JavaScript-compatible application, such as online gaming websites.
 
-Designed to provide low-level access to a parser interface while allowing
+Designed to provide high-level access to a parser interface while allowing
 flexibility with commands and their functions. 
 
 License: [MIT license](https://opensource.org/licenses/MIT)
