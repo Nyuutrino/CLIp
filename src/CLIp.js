@@ -625,7 +625,6 @@ const CLIp = {};
         const CLIp = objList.CLIp;
         Object.defineProperty(CLIp,"About",{value:{[metadataNames.type]:"property",[metadataNames.allowedValues]:new Array(0),[metadataNames.propertyAccessibility]:"read-only",[metadataNames.allowListeners]:false,[metadataNames.listeners]:new Array(0),[metadataNames.value]:"CLIp (Stands for \"CLI parser\", pronounced \"Clype\") is a command line interpreter that is programmed in JavaScript. It allows functionality for creating a terminal-like interface for applications (especially online games). CLIp is built and maintained by Baconman321, so check him out (https://replit.com/@baconman321)! If you want a tutorial on how to use CLIp just execute the command \"CLIp::OpenTutorial->null\"."},enumerable:true});
         Object.defineProperty(objList.CLIp,"OpenTutorial",{value:{[metadataNames.type]:"method",[metadataNames.allowListeners]:false,[metadataNames.listeners]:new Array(0),[metadataNames.value]:() => {
-            /*Currently I don't have a webpage for this.*/
             if("open" in globalThis){
                 globalThis.open("https://clip.baconman321.repl.co/docs/usertutorial");
             }
