@@ -1886,7 +1886,7 @@ const CLIp = {};
                 const startCollecting = resultArr.length > 0;
                 let isProperty = false;
                 /*We need to check if the object is a method, property or main-object (or if the "type" even exists. If it doesn't it shouldn't be settable). Note that main objects are not changable or executable.*/
-                if((prop[metadataNames.type] === "main-object" || prop[metadataNames.type] === "property-container") && startCollecting){
+                if((prop[metadataNames.type] === "main-object" || prop[metadataNames.type] === "property-container" || prop[metadataNames.type] === "clip-help") && startCollecting){
                     rej(new ParsetimeError("Cannot change the value of or execute a main object/property container."));
                 }
                 let isMeta = false;
