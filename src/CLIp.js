@@ -1379,7 +1379,7 @@ const CLIp = {};
                     return;
                 }
                 else if(v.type === "escaped_char" && !setterFound){
-                    rej(new SyntaxError(`Unexpected escape character on the left-hand side of the setter. Column numbeR: ${v.column_numbers[0]}.`));
+                    rej(new SyntaxError(`Unexpected escape character on the left-hand side of the setter. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
                 else if(v.type === "pointer" && lastOperator === "pointer"){
