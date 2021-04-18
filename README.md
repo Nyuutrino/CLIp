@@ -24,3 +24,8 @@ Want a documentation on how to use CLIp?
 We've got that covered!
 
 CLIp docs are [here](https://clip.baconman321.repl.co/docs/about.html)
+
+
+# Current version:
+
+1.0.1
