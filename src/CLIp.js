@@ -205,6 +205,10 @@ Suggestions (probably not going to happen anytime soon; some may never happen):
     
     *Raw value: A non-string-bound value after the setter (a value that isn't wrapped with '"' after the setter).
     
+    *Behavior block: A special block in the command that changes how it will be interpreted. Behavior blocks are wrapped in less-than greater-than symbols, like so: "<behavior:value>"
+    
+    *Type declarator: A behavior block that changes the type of the value.
+    
     ***More terms go here when I come up with them (lol).
 */
 /*------------------------------           ------------------------------*/
@@ -527,7 +531,7 @@ const CLIp = {};
                     objectletLineEnd = COL - 1;
                     drainObjectletCollection();
                     if(TYPE_DECL_OPEN){
-                        tokenCollection.push({"type":"open_type_decl_failure","column_numbers":[COL, COL],"value":v});
+                        tokenCollection.push({"type":"open_behavior_block_failure","column_numbers":[COL, COL],"value":v});
                     }
                     else{
                         TYPE_DECL_OPEN = true;
@@ -537,11 +541,11 @@ const CLIp = {};
                 }
                 else if(v === T_TYPEDECLEND && !IS_STRING && !IS_SETTER && !IS_POINTER){
                     if(!TYPE_DECL_OPEN){
-                        tokenCollection.push({"type":"close_type_decl_failure","column_numbers":[COL, COL],"value":v});
+                        tokenCollection.push({"type":"close_behavior_block_failure","column_numbers":[COL, COL],"value":v});
                     }
                     else{
                         TYPE_DECL_OPEN = false;
-                        tokenCollection.push({"type":"type_declarator","column_numbers":[typeDeclLineStart, COL],"value":`${T_TYPEDECLSTART}${typeDeclCollection.splice(0).join("")}${T_TYPEDECLEND}`});
+                        tokenCollection.push({"type":"behavior_block","column_numbers":[typeDeclLineStart, COL],"value":`${T_TYPEDECLSTART}${typeDeclCollection.splice(0).join("")}${T_TYPEDECLEND}`});
                         typeDeclLineStart = 0;
                     }
                     continue;
@@ -619,7 +623,7 @@ const CLIp = {};
                 tokenCollection.push({"type":"unclosed_string","column_numbers":[stringLineStart, COL],"value":stringCollection.join("")});
             }
             else if(TYPE_DECL_OPEN){
-                tokenCollection.push({"type":"unclosed_type_declarator","column_numbers":[typeDeclLineStart, COL],"value":typeDeclCollection.join("")});
+                tokenCollection.push({"type":"unclosed_behavior_block","column_numbers":[typeDeclLineStart, COL],"value":typeDeclCollection.join("")});
             }
             return tokenCollection;
         }
@@ -1354,17 +1358,17 @@ const CLIp = {};
                 
                 *argument_separator
                 
-                *open_type_decl_failure
+                *open_behavior_block_failure
                 
-                *close_type_decl_failure
+                *close_behavior_block_failure
                 
-                *type_declarator
+                *behavior_block
                 
                 *unknown_token
                 
                 *unclosed_string
                 
-                *unclosed_type_declarator
+                *unclosed_behavior_block
             */
             const lex = new LexicalAnalyzer();
             lex.InitializeTokens("\\","\"",":",":","-",">",";","<",">","abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_");
@@ -1386,35 +1390,35 @@ const CLIp = {};
                     rej(new SyntaxError(`Unexpected pointer, expecting objectlet. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "pointer" && lastOperator !== "objectlet" && lastOperator !== "type_declarator"){
-                    rej(new SyntaxError(`Unexpected token before pointer, expecting objectlet or type declarator but got ${lastOperator} instead. Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "pointer" && lastOperator !== "objectlet" && lastOperator !== "behavior_block"){
+                    rej(new SyntaxError(`Unexpected token before pointer, expecting objectlet but got ${lastOperator} instead. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
                 else if(v.type === "setter" && lastOperator === "setter"){
                     rej(new SyntaxError(`Unexpected setter, expected value. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "setter" && lastOperator !== "objectlet" && lastOperator !== "type_declarator"){
-                    rej(new SyntaxError(`Unexpected token before setter, expecting objectlet or type declarator but got ${lastOperator} instead. Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "setter" && lastOperator !== "objectlet" && lastOperator !== "behavior_block"){
+                    rej(new SyntaxError(`Unexpected token before setter, expecting objectlet but got ${lastOperator} instead. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
                 else if(v.type === "argument_separator" && lastOperator === "argument_separator"){
                     rej(new SyntaxError(`Unexpected argument separator, expected value. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "type_declarator" && lastOperator === "pointer"){
-                    rej(new SyntaxError(`Unexpected type declarator, expected objectlet (cannot use empty value). Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "behavior_block" && lastOperator === "pointer"){
+                    rej(new SyntaxError(`Unexpected behavior block, expected objectlet. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(lastOperator === "type_declarator" && v.type !== "pointer" && v.type !== "setter" && v.type !== "argument_separator"){
-                    rej(new SyntaxError(`Unexpected token "${v.value}", expecting an argument separator (or if it's a property - EOS (end of statement)) after type declarator. Column number: ${v.column_numbers[0]}.`));
+                else if(lastOperator === "behavior_block" && v.type !== "pointer" && v.type !== "setter" && v.type !== "argument_separator"){
+                    rej(new SyntaxError(`Unexpected token "${v.value}", expecting an argument separator (or if it's a property - EOS (end of statement)) after behavior block. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "open_type_decl_failure"){
-                    rej(new SyntaxError(`Unexpected type declaration opening operator. Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "open_behavior_block_failure"){
+                    rej(new SyntaxError(`Unexpected behavior block opening operator. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "close_type_decl_failure"){
+                else if(v.type === "close_behavior_block_failure"){
                     rej(new SyntaxError(`Unexpected type declaration closing operator. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
@@ -1422,16 +1426,16 @@ const CLIp = {};
                     rej(new SyntaxError(`Unclosed string. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "unclosed_type_declarator"){
-                    rej(new SyntaxError(`Unclosed type declarator. Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "unclosed_behavior_block"){
+                    rej(new SyntaxError(`Unclosed behavior block. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
-                else if(v.type === "type_declarator" && !setterFound){
-                    rej(new SyntaxError(`Cannot use type declarators on left-hand side of setter. Column number: ${v.column_numbers[0]}.`));
+                else if(v.type === "behavior_block" && !setterFound){
+                    rej(new SyntaxError(`Cannot use behavior blocks on left-hand side of setter. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
                 else if(v.type === "pointer" && setterFound){
-                    rej(new SyntaxError(`Cannot currently use pointers on the right-hand side of the setter. Column number: ${v.column_numbers[0]}.`));
+                    rej(new SyntaxError(`Cannot use pointers on the right-hand side of the setter. Column number: ${v.column_numbers[0]}.`));
                     return;
                 }
                 else if(v.type === "setter" && setterFound){
@@ -1454,7 +1458,7 @@ const CLIp = {};
                 else if(v.type === "objectlet" && setterFound){
                     objectletAfterSetter = true;
                 }
-                else if(v.type === "type_declarator"){
+                else if(v.type === "behavior_block"){
                     const tArr = v.value.split("");
                     tArr.shift();
                     tArr.pop();
@@ -1476,11 +1480,11 @@ const CLIp = {};
                         ++col;
                     });
                     if(isString){
-                        rej(new SyntaxError(`Unclosed string inside of type declarator. Column number: ${v.column_numbers[0]}.`));
+                        rej(new SyntaxError(`Unclosed string inside of behavior block. Column number: ${v.column_numbers[0]}.`));
                         return;
                     }
                     if(tArr.length < 1){
-                        rej(new SyntaxError(`Cannot have empty type declarator. Column number: ${v.column_numbers[0]}.`));
+                        rej(new SyntaxError(`Cannot have empty behavior block. Column number: ${v.column_numbers[0]}.`));
                         return;
                     }
                 }
@@ -1917,7 +1921,7 @@ const CLIp = {};
                         else if(v.type === "argument_separator"){
                             rej(new ParsetimeError(`Cannot use argument separators on a property. Column number: ${v.column_numbers[0]}.`));
                         }
-                        else if(v.type === "type_declarator"){
+                        else if(v.type === "behavior_block"){
                             let lhs = "";
                             let rhs = "";
                             let onLhs = true;
@@ -1942,7 +1946,7 @@ const CLIp = {};
                                 }
                             });
                             if(lhs !== "type"){
-                                rej(new ParsetimeError(`Unknown type declarator command "${lhs}". Column number: ${v.column_numbers[0]}.`));
+                                rej(new ParsetimeError(`Unknown behavior block behavior "${lhs}". Column number: ${v.column_numbers[0]}.`));
                             }
                             if(allowedDataTypes.filter(val => val === rhs).length < 1){
                                 rej(new ParsetimeError(`Unsupported type "${rhs}". Column number: ${v.column_numbers[0]}.`));
@@ -1972,7 +1976,7 @@ const CLIp = {};
                         else if(v.type === "argument_separator"){
                             escapeCharFound = false;
                         }
-                        else if(v.type === "type_declarator"){
+                        else if(v.type === "behavior_block"){
                             let lhs = "";
                             let rhs = "";
                             let onLhs = true;
@@ -1997,7 +2001,7 @@ const CLIp = {};
                                 }
                             });
                             if(lhs !== "type"){
-                                rej(new ParsetimeError(`Unknown type declarator command "${lhs}". Column number: ${v.column_numbers[0]}.`));
+                                rej(new ParsetimeError(`Unknown behavior block behavior "${lhs}". Column number: ${v.column_numbers[0]}.`));
                             }
                             if(allowedDataTypes.filter(val => val === rhs).length < 1){
                                 rej(new ParsetimeError(`Unsupported type "${rhs}". Column number: ${v.column_numbers[0]}.`));
