@@ -303,7 +303,7 @@ const CLIp = {};
     };
     function preRoutine(objectlet,objectletLocked){
         if(objList === null){
-            throw new InitializationError("Root object is not initiated.");
+            throw new InitializationError("Root is not initialized.");
         }
         if(objectletLocked){
             if(objectlet[metadataNames.locked] || objectlet[metadataNames.sealed]){
@@ -633,8 +633,8 @@ const CLIp = {};
     /*Now... onto the CLIp definitions!!*/
 
 
-    CLIp.InitRoot = () => {
-        if(objList !== null) throw new InitializationError("Root cannot be initiated twice!");
+    CLIp.InitializeRoot = () => {
+        if(objList !== null) throw new InitializationError("Root cannot be initialized twice!");
         objList = new Object();
         /*To make sure the user always has a way of getting help.*/
         Object.defineProperty(objList,"CLIp",{value:{},enumerable:true});
