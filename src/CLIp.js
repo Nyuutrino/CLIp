@@ -1190,6 +1190,7 @@ const CLIp = {};
         return objList;
     };
     CLIp.GetFromPath = async statement => {
+        preRoutine();
         if(typeof void 0 === typeof statement){
             throw new TypeError(`Parameter "statement" (argument 1) is not of type "string".`);
         }
