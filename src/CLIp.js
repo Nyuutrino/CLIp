@@ -301,16 +301,16 @@ const CLIp = {};
         }
         return [...str];
     };
-    function preRoutine(objectlet,objectletLocked){
+    const preRoutine = (objectlet,objectletLockedTest) => {
         if(objList === null){
             throw new InitializationError("Root is not initialized.");
         }
-        if(objectletLocked){
+        if(objectletLockedTest){
             if(objectlet[metadataNames.locked] || objectlet[metadataNames.sealed]){
                 throw new InitializationError("Cannot mutate a locked commandlet/sealed commander.");
             }
         }
-    }
+    };
     const checkPropertyNameLegality = (propertyName) => {
         if(typeof propertyName === typeof void(0)) throw new TypeError(`Parameter "propertyName" (argument 1) is not defined.`);
         if(typeof propertyName !== typeof "") throw new TypeError(`Parameter "propertyName" (argument 1) is not of type "string". Expected string found "${propertyName}" with type "${typeof propertyName}".`);
@@ -636,6 +636,7 @@ const CLIp = {};
     CLIp.InitializeRoot = () => {
         if(objList !== null) throw new InitializationError("Root cannot be initialized twice!");
         objList = new Object();
+        objList[metadataNames.type] = "property-container";
         /*To make sure the user always has a way of getting help.*/
         Object.defineProperty(objList,"CLIp",{value:{},enumerable:true});
         Object.defineProperty(objList.CLIp,metadataNames.type,{value:"clip-help",enumerable:true});
@@ -759,8 +760,8 @@ const CLIp = {};
         if(typeof objectName === typeof void(0)){
             throw new TypeError("Parameter \"objectName\" (argument 2) is not defined.");
         }
-        if(typeof object !== typeof {}){
-            throw new TypeError("Parameter \"object\" (argument 1) is not a valid object.");
+        if(typeof object !== typeof {} && (object[metadataNames.type] !== "property-container" || object[metadataNames.type] !== "main-object")){
+            throw new TypeError("Parameter \"object\" (argument 1) is not a valid commander.");
         }
         if(typeof objectName !== typeof ""){
             throw new TypeError("Parameter \"objectName\" (argument 2) is not of type \"string\".");
@@ -806,8 +807,8 @@ const CLIp = {};
         if(typeof propertyArray === typeof void(0)){
             throw new TypeError("Parameter \"propertyArray\" (argument 2) is not defined.");
         }
-        if(Object.prototype.toString.call(propertyContainer) !== Object.prototype.toString.call(new Object())){
-            throw new TypeError("Parameter \"propertyContainer (argument 2) is not an object to bind the property to.");
+        if(Object.prototype.toString.call(propertyContainer) !== Object.prototype.toString.call(new Object()) && (propertyContainer[metadataNames.type] !== "property-container" || propertyContainer[metadataNames.type] !== "main-object")){
+            throw new TypeError("Parameter \"propertyContainer (argument 2) is not a valid commander to bind the property to.");
         }
         if(Object.prototype.toString.call(propertyArray) !== Object.prototype.toString.call([])){
             throw new TypeError("Paramter \"propertyArray\" (argument 2) is not a valid array with values containing the name of the property of type \"string\" and the value.");
@@ -864,7 +865,7 @@ const CLIp = {};
                         if(err){
                             this[metadataNames.listeners].forEach((v) => {
                                 /*Calls the listener and passes in the type as the first argument, the new value as the second, and the current (before being changed) value as the third.*/
-                                v(this[metadataNames.type],value,oldVal,error);
+                                v(this[metadataNames.type],value,oldVal,err);
                             });
                         }
                         else{
@@ -901,7 +902,7 @@ const CLIp = {};
                             if(err){
                                 this[metadataNames.listeners].forEach((v) => {
                                     /*Calls the listener and passes in the type as the first argument, the new value as the second, and the current (before being changed) value as the third.*/
-                                    v(this[metadataNames.type],value,oldVal,error);
+                                    v(this[metadataNames.type],value,oldVal,err);
                                 });
                             }
                             else{
@@ -933,8 +934,8 @@ const CLIp = {};
         if(typeof methodArray === typeof void(0)){
             throw new TypeError("Parameter \"methodArray\" (argument 2) is not defined.");
         }
-        if(Object.prototype.toString.call(propertyContainer) !== Object.prototype.toString.call(Object())){
-            throw new TypeError("Parameter \"propertyContainer\" (argument 2) is not an objectlet to bind the property to.");
+        if(Object.prototype.toString.call(propertyContainer) !== Object.prototype.toString.call(Object()) && (propertyContainer[metadataNames.type] !== "property-container" || propertyContainer[metadataNames.type] !== "main-object")){
+            throw new TypeError("Parameter \"propertyContainer\" (argument 2) is not a valid commander to bind the property to.");
         }
         if(typeof methodArray[0] !== typeof ""){
             throw new TypeError("Paramter \"methodArray\" (argument 2) is not a valid array with values containing the name of the method of type \"string\" and the method of type \"function\".");
@@ -1023,7 +1024,7 @@ const CLIp = {};
     CLIp.ChangeObjectletAccessibility = (objectlet, accessibility) => {
         preRoutine(objectlet, true);
         if(typeof objectlet !== typeof new Object() && !objectlet[metadataNames.type]){
-            throw new TypeError(`Parameter "objectlet" (argument 1) is not an object and/or is not a valid objectlet.`);
+            throw new TypeError(`Parameter "objectlet" (argument 1) is not an objectlet that has a property accessiblity mode.`);
         }
         if(accessibility !== "read-only" && accessibility !== "read-write"){
             throw new InitializationError(`Parameter "accessibility" (argument 2) is not a string with either the value "read-only" or read-write"`);
@@ -1051,6 +1052,7 @@ const CLIp = {};
         return commandlet;
     };
     CLIp.SealCommander = commander => {
+        preRoutine();
         if(typeof commander !== typeof new Object() || !commander[metadataNames.type]){
             throw new TypeError(`Parameter "commandlet" (argument 1) is not an object and/or is not a valid commandlet.`);
         }
