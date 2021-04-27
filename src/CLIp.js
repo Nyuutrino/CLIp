@@ -270,7 +270,7 @@ const CLIp = {};
     const modes = {"executionMode":{"value":"readWrite","allowedValues":["writeOnly","readOnly","readWrite"]},"strictMode":false,"strictCommandMode":false};
     const allowedDataTypes = ["string","number","null","undefined","NaN","infer"];
     Object.freeze(modes.allowedValues);
-    const _VERSION = "1.0.1";
+    const _VERSION = "1.0.2";
     /*It's a constant to prevent changes during runtime (in addition to it being frozen)...*/
     const metadataNames = {
         type: "_CLIpObjectletType",
