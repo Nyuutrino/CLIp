@@ -31,3 +31,13 @@ CLIp docs are [here](https://clip.baconman321.repl.co/docs/about.html)
 1.0.2
 
 Note that this is the first release and thus will be changed frequently, either due to bugs or minor changes. It is recommended you don't download CLIp during this time, but rather pull it from a CDN using the latest release.
+
+# Notice about versioning
+
+I am currently working out versioning, and from here on out I am using a semver-like versioning basis.
+
+Any patch changes will now result in the incrementation of patch number, as with minor and major.
+
+Because CLIp is in the very early stage, some things are either broken or have unexpected behavior. Once these bugs start getting fixed, there will be a BROKENVERSIONS.md file showing the versions that are either broken or have significant unexpected behavior.
+
+
