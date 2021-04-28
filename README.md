@@ -34,7 +34,7 @@ Note that this is the first release and thus will be changed frequently, either 
 
 # Notice about versioning
 
-I am currently working out versioning, and from here on out I am using a semver-like versioning basis.
+I am currently working out versioning, and from here on out (version 1.0.2) I am using a semver-like versioning basis.
 
 Any patch changes will now result in the incrementation of patch number, as with minor and major.
 
