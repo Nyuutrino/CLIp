@@ -28,7 +28,7 @@ CLIp docs are [here](https://clip.baconman321.repl.co/docs/about.html)
 
 # Current version:
 
-1.0.2
+1.1.0
 
 Note that this is the first release and thus will be changed frequently, either due to bugs or minor changes. It is recommended you don't download CLIp during this time, but rather pull it from a CDN using the latest release.
 
