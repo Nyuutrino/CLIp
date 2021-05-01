@@ -12,5 +12,5 @@ Next patch: fix the recursive limit for `CLIp.GetRelevantCommands`
 
 ### Version 1.0.2:
 
-#### Minor fix for a bug:
+#### Minor fix for a bug.
 - Fixed a bug where you can bind commandlets to commandlets
