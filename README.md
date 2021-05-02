@@ -1,6 +1,6 @@
 # CLIp (CLI Parser)
 
-An easily-integrated command-line-interpreter built in JavaScript.
+An easily integrated command-line interpreter built in JavaScript.
 
 Use it in any JavaScript-compatible application, such as online gaming websites.
 
