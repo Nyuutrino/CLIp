@@ -1,6 +1,6 @@
 # CLIp (CLI Parser)
 
-An easily-integrated command-line-interpreter meant built in JavaScript.
+An easily-integrated command-line-interpreter built in JavaScript.
 
 Use it in any JavaScript-compatible application, such as online gaming websites.
 
@@ -9,7 +9,7 @@ flexibility with commands and their functions.
 
 License: [MIT license](https://opensource.org/licenses/MIT)
 
-License can be found in the source code, both minified and unminified.
+License can be found in the source code - both minified and unminified.
 
 Links to the source code:
 
@@ -38,6 +38,6 @@ I am currently working out versioning, and from here on out (version 1.0.2) I am
 
 Any patch changes will now result in the incrementation of patch number, as with minor and major.
 
-Because CLIp is in the very early stage, some things are either broken or have unexpected behavior. Once these bugs start getting fixed, there will be a BROKENVERSIONS.md file showing the versions that are either broken or have significant unexpected behavior.
+Because CLIp is in the very early stage some things are either broken or have unexpected behavior. Once these bugs start getting fixed there will be a BROKENVERSIONS.md file showing the versions that are either broken or have significant unexpected behavior.
 
 
