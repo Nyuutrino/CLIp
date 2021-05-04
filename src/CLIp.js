@@ -1180,7 +1180,7 @@ const CLIp = {};
         Object.freeze(commander);
         return commander;
     };
-    CLIp.BindRestrictingValues = (values,objectlet) => {
+    CLIp.BindRestrictingValues = (values, objectlet) => {
         preRoutine(objectlet, true);
         /*Takes in an array of values containing an array for each desired value allowed containing the value at the 0th index and an array of the allowed types it can take on at the 1st index.*/
         /*Restricting values will be prioritized over restricting types.*/
@@ -1389,7 +1389,7 @@ const CLIp = {};
         objectlet[metadataNames.listeners.name].forEach(v => {
             if(v === callback){
                 if(modes.strictMode === true && !replaceSameListenerHandler){
-                    throw new InitializationError(`Cannot declare a listener on the property/method in strict mode because another listener of the same function exists and "replaceSameListenerHandler" is not set to true!`);
+                    throw new InitializationError(`Cannot declare a listener on the property/method in strict mode because another listener of the same function exists and "replaceSameListenerHandler" is not set to true.`);
                 }
                 hasCallback = true;
             }
@@ -1460,7 +1460,7 @@ const CLIp = {};
         if(callbackIndx === -1 && modes.strictMode) throw new InitializationError("Cannot remove the listener because it doesn't exist!");
         if(callbackIndx === -1 && !modes.strictMode) return objectlet[metadataNames.listeners.name];
         objectlet[metadataNames.listeners.name].splice(callbackIndx, 1);
-        return objectlet[metadataNames.listeners.name];
+        return objectlet[metadataNames.listeners.name]; 
     };
     /*Basically checks the command syntax (if you want to check it yourself).*/
     CLIp.CheckCommandLegality = (command) => {
@@ -2161,7 +2161,7 @@ const CLIp = {};
         const execStatement = (cmd,prop,val,vType,isProp,returnValueOnly,propName) => {
             /*It returns a promise which resolves to an array containing the objectlet type, the type of the result and the result..*/
             return new Promise((res,rej) => {
-                if(prop[metadataNames.locked.name] && !returnValueOnly){
+                if(prop[metadataNames.locked.name] && !returnValueOnly && prop[metadataNames.type.name] === "property"){
                     rej(new ParsetimeError("Cannot change the value of a locked objectlet."));
                     return;
                 }
