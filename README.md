@@ -13,31 +13,19 @@ License can be found in the source code - both minified and unminified.
 
 Links to the source code:
 
-Unminified source code: https://replit.com/@Baconman321/CLIp#public/resources/scripts/lib/CLIp.js
+Unminified source code: https://replit.com/@Nyuutrino/CLIp#public/resources/scripts/lib/CLIp.js
 
 Minified source code:
-https://replit.com/@Baconman321/CLIp#public/resources/scripts/lib/CLIp.min.js
-
-
-Want a documentation on how to use CLIp?
-
-We've got that covered!
-
-CLIp docs are [here](https://clip.baconman321.repl.co/docs/about.html)
+https://replit.com/@Nyuutrino/CLIp#public/resources/scripts/lib/CLIp.min.js
 
 
 # Current version:
 
-1.1.0
-
-Note that this is the first release and thus will be changed frequently, either due to bugs or minor changes. It is recommended you don't download CLIp during this time, but rather pull it from a CDN using the latest release.
+1.1.1
 
 # Notice about versioning
 
 I am currently working out versioning, and from here on out (version 1.0.2) I am using a semver-like versioning basis.
 
 Any patch changes will now result in the incrementation of patch number, as with minor and major.
-
-Because CLIp is in the very early stage some things are either broken or have unexpected behavior. Once these bugs start getting fixed there will be a BROKENVERSIONS.md file showing the versions that are either broken or have significant unexpected behavior.
-
 
