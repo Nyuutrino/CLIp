@@ -1,20 +1,12 @@
 /*
 
-    Code maintained by Baconman321 (https://replit.com/@baconman321). If you want to use this then please provide appropriate credit.
+    Code provided by Nyuutrino (https://replit.com/@Nyuutrino).
 
 */
 
 /*
-  License (MIT):
-
-  Copyright (2021) baconman321
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+  License (MIT) - see LICENSE file in main on the github page
+  
 */
 
 /*
@@ -728,25 +720,26 @@ const CLIp = {};
                     [metadataNames.allowListeners.name]: false,
                     [metadataNames.locked.name]: true,
                     [metadataNames.listeners.name]: [],
-                    [metadataNames.value.name]: `CLIp (Stands for "CLI parser", pronounced "Clype") is a command line interpreter that is programmed in JavaScript. It allows functionality for creating a terminal-like interface for applications (especially online games). CLIp is built and maintained by Baconman321, so check him out (https://replit.com/@baconman321)! If you want a tutorial on how to use CLIp just execute the command "CLIp::OpenTutorial->null".`
+                    [metadataNames.value.name]: `CLIp (Stands for "CLI parser", pronounced "Clype") is a command line interpreter that is programmed in JavaScript. It allows functionality for creating a terminal-like interface for applications (especially online games). CLIp is built by Nyuutrino, so check him out (https://replit.com/@Nyuutrino)!`
                 },
                 enumerable: true
             },
-            "OpenTutorial": {
-                value: {
-                    [metadataNames.type.name]: "method",
-                    [metadataNames.allowListeners.name] :false,
-                    [metadataNames.listeners.name]: [],
-                    [metadataNames.locked.name]: true,
-                    [metadataNames.value.name]: () => {
-                        /*Sadly we cannot open a window from a worker (understandable). This causes a problem with accessibility for users who need to know CLIp...*/
-                        if("open" in globalThis){
-                            globalThis.open("https://clip.baconman321.repl.co/docs/usertutorial");
-                        }
-                    }
-                },
-                enumerable: true
-            },
+            // No website available at the time
+            // "OpenTutorial": {
+            //     value: {
+            //         [metadataNames.type.name]: "method",
+            //         [metadataNames.allowListeners.name] :false,
+            //         [metadataNames.listeners.name]: [],
+            //         [metadataNames.locked.name]: true,
+            //         [metadataNames.value.name]: () => {
+            //             /*Sadly we cannot open a window from a worker (understandable). This causes a problem with accessibility for users who need to know CLIp...*/
+            //             if("open" in globalThis){
+            //                 globalThis.open("https://replit.com/@Nyuutrino/CLIp");
+            //             }
+            //         }
+            //     },
+            //     enumerable: true
+            // },
             "StrictModeEnabled": {
                 value: {
                     [metadataNames.type.name]: "method",
